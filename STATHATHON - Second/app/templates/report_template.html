@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <title>{{ title }}</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@600;800&family=Roboto&display=swap');
+
+        body {
+            font-family: 'Roboto', sans-serif;
+            margin: 40px;
+            color: #222;
+            background: #f9fafc;
+        }
+
+        .cover {
+            max-width: 720px;
+            margin: 120px auto 80px;
+            padding: 60px 40px;
+            background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+            color: #fff;
+            border-radius: 24px;
+            text-align: center;
+        }
+
+        .cover h1 {
+            font-family: 'Poppins', sans-serif;
+            font-weight: 800;
+            font-size: 3.8rem;
+            margin-bottom: 12px;
+        }
+
+        .cover h3 {
+            font-weight: 600;
+            font-size: 1.6rem;
+            margin-bottom: 16px;
+            opacity: 0.9;
+        }
+
+        .cover .divider {
+            width: 80px;
+            height: 4px;
+            margin: 30px auto;
+            background: #ffb400;
+            border-radius: 2px;
+        }
+
+        h2 {
+            color: #2a5298;
+            border-bottom: 2px solid #ffb400;
+            padding-bottom: 5px;
+        }
+
+        h3 { color: #1e3c72; }
+
+        table { width: 100%; border-collapse: collapse; margin-top: 10px; }
+        th, td { border: 1px solid #ccc; padding: 8px; }
+        th { background-color: #1e3c72; color: white; }
+
+        img { max-width: 100%; border: 1px solid #ddd; padding: 5px; margin-top: 10px; }
+        .caption { font-style: italic; font-size: 0.9em; margin-bottom: 20px; color: #444; }
+
+        .section { page-break-before: always; margin-bottom: 30px; }
+    </style>
+</head>
+<body>
+
+<div class="cover">
+    <h1>{{ title }}</h1>
+    <div class="divider"></div>
+    <h3>{{ dataset_name }}</h3>
+    <p>{{ date }}</p>
+</div>
+
+<div class="section">
+    <h2>Introduction</h2>
+    {% for line in introduction %}
+        <p>{{ line }}</p>
+    {% endfor %}
+</div>
+
+<div class="section">
+    <h2>Methods</h2>
+    {% for line in methods %}
+        <p>{{ line }}</p>
+    {% endfor %}
+</div>
+
+<div class="section">
+    <h2>Executive Summary</h2>
+    <ul>
+        {% for point in executive_summary %}
+        <li>{{ point }}</li>
+        {% endfor %}
+    </ul>
+</div>
+
+<div class="section">
+    <h2>Data Cleaning Notes</h2>
+    {% for line in cleaning_notes %}
+        <p>{{ line }}</p>
+    {% endfor %}
+</div>
+
+<div class="section">
+    <h2>Statistical Summary</h2>
+    <table>
+        <thead>
+            <tr>
+                {% for key in stats[0].keys() %}
+                    <th>{{ key | capitalize }}</th>
+                {% endfor %}
+            </tr>
+        </thead>
+        <tbody>
+            {% for row in stats %}
+                <tr>
+                    {% for value in row.values() %}
+                        <td>{{ value }}</td>
+                    {% endfor %}
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+
+
+<div class="section">
+    <h2>Results & Insights</h2>
+    {% for chart in charts %}
+        <h3>{{ chart.col }}</h3>
+        <img src="data:image/png;base64,{{ chart.img }}">
+        {% if chart.caption %}<p class="caption">{{ chart.caption }}</p>{% endif %}
+    {% endfor %}
+</div>
+
+<div class="section">
+    <h2>Conclusion & Recommendations</h2>
+    <p>{{ conclusion }}</p>
+    <ul>
+        {% for rec in recommendations %}
+        <li>{{ rec }}</li>
+        {% endfor %}
+    </ul>
+</div>
+
+</body>
+</html>
