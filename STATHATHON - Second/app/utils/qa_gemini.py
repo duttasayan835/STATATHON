@@ -1,7 +1,7 @@
 import requests
 import os
 
-GEMINI_API_KEY = "AIzaSyAS_zRMtvMkgjp5MeTtMot4kJg4egyxtXw"
+GEMINI_API_KEY = "key"
 
 def ask_gemini_question(summary_dict, question):
     url = f"https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key={GEMINI_API_KEY}"
@@ -35,3 +35,4 @@ def ask_gemini_question(summary_dict, question):
             return "No answer could be generated."
     except Exception as e:
         return f"Error: {str(e)}"
+
